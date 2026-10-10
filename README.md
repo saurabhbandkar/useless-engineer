@@ -178,12 +178,11 @@ const behavior = isIOS ? "padding" : "height";
 
 Released one or two at a time, each matching a post that's already live.
 
-| Next up                                                                                                                  | Entry        | Origin                                    |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------ | ----------------------------------------- |
-| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square) `delay`, `withTimeout`                              | core         | Validated timers, `Promise.race` timeouts |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `safeParseJSON`, `safeStringify`, `deepClone` | core         | JSON and shallow-copy gotchas             |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `getAccessibilityProps`, `createShadow`       | react-native | Accessibility and iOS-only shadows        |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates      |
+| Next up                                                                                                                  | Entry        | Origin                               |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------ |
+| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square)`safeParseJSON`, `safeStringify`, `deepClone`        | core         | JSON and shallow-copy gotchas        |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `getAccessibilityProps`, `createShadow`       | react-native | Accessibility and iOS-only shadows   |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates |
 
 ---
 
