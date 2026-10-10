@@ -91,7 +91,7 @@ const padding = isIOS ? 20 : 16;
 ### Core
 
 <details>
-<summary><code>debounce(fn, delay)</code> &nbsp; ![live](https://img.shields.io/badge/-live-22c55e?style=flat-square) ![async](https://img.shields.io/badge/-async-6366f1?style=flat-square)</summary>
+<summary><code>debounce(fn, delay)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="async" src="https://img.shields.io/badge/-async-6366f1?style=flat-square"></summary>
 
 <br>
 
@@ -117,7 +117,7 @@ save.cancel();
 </details>
 
 <details>
-<summary><code>throttle(fn, interval, options?)</code> &nbsp; ![live](https://img.shields.io/badge/-live-22c55e?style=flat-square) ![async](https://img.shields.io/badge/-async-6366f1?style=flat-square)</summary>
+<summary><code>throttle(fn, interval, options?)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="async" src="https://img.shields.io/badge/-async-6366f1?style=flat-square"></summary>
 
 <br>
 
@@ -158,7 +158,7 @@ Returns a function with `.cancel()`.
 ### React Native
 
 <details>
-<summary><code>isIOS</code> / <code>isAndroid</code> &nbsp; ![live](https://img.shields.io/badge/-live-22c55e?style=flat-square) ![react native](https://img.shields.io/badge/-react%20native-61DAFB?style=flat-square&logoColor=black)</summary>
+<summary><code>isIOS</code> / <code>isAndroid</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="react native" src="https://img.shields.io/badge/-react%20native-61DAFB?style=flat-square&logoColor=black"></summary>
 
 <br>
 
