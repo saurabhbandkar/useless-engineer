@@ -155,6 +155,78 @@ Returns a function with `.cancel()`.
 
 </details>
 
+<details>
+<summary><code>delay(ms, options?)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="async" src="https://img.shields.io/badge/-async-6366f1?style=flat-square"></summary>
+
+<br>
+
+`await`-able sleep that rejects bad input (negative, `NaN`, `Infinity`) instead of silently firing instantly, and can be cancelled.
+
+```ts
+await delay(500);
+
+const ctrl = new AbortController();
+delay(5000, { signal: ctrl.signal }).catch(() => {});
+ctrl.abort(); // stops waiting; the promise rejects with the signal's reason
+```
+
+</details>
+
+<details>
+<summary><code>withTimeout(promise, ms, message?)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="async" src="https://img.shields.io/badge/-async-6366f1?style=flat-square"></summary>
+
+<br>
+
+Rejects with a `TimeoutError` if the promise takes too long. Clears its timer once the promise settles.
+
+```ts
+try {
+  const user = await withTimeout(fetchUser(id), 3000);
+} catch (e) {
+  if (e instanceof TimeoutError) showRetry();
+}
+```
+
+> ⚠️ This stops _waiting_, not the work. A timed-out `fetch` keeps running unless you also pass it an `AbortSignal`.
+
+</details>
+
+<details>
+<summary><code>safeParseJSON(text, fallback?)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="json" src="https://img.shields.io/badge/-json-f97316?style=flat-square"></summary>
+
+<br>
+
+`JSON.parse` that never throws. Returns the fallback for invalid JSON or for `null`/`undefined` input (like a missing `AsyncStorage` key).
+
+```ts
+const settings = safeParseJSON(raw, { theme: "light" });
+safeParseJSON("0", 99); // 0, valid falsy values are kept
+safeParseJSON("{oops", 1); // 1
+```
+
+> The type `T` is a promise from you, not a check. Validate untrusted data before relying on its shape.
+
+</details>
+
+<details>
+<summary><code>safeStringify(value, options?)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="json" src="https://img.shields.io/badge/-json-f97316?style=flat-square"></summary>
+
+<br>
+
+`JSON.stringify` that never throws on circular references or `BigInt`.
+
+```ts
+const a = { name: "a" };
+a.self = a;
+safeStringify(a); // '{"name":"a","self":"[Circular]"}'
+safeStringify({ n: 10n }); // '{"n":"10"}'
+safeStringify(data, { space: 2 });
+```
+
+Shared (non-circular) references are kept as they are. Returns `undefined` when there's no JSON form, like `JSON.stringify`.
+
+</details>
+
 ### React Native
 
 <details>
@@ -178,11 +250,11 @@ const behavior = isIOS ? "padding" : "height";
 
 Released one or two at a time, each matching a post that's already live.
 
-| Next up                                                                                                                  | Entry        | Origin                               |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------ |
-| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square)`safeParseJSON`, `safeStringify`, `deepClone`        | core         | JSON and shallow-copy gotchas        |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `getAccessibilityProps`, `createShadow`       | react-native | Accessibility and iOS-only shadows   |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates |
+| Next up                                                                                                                  | Entry        | Origin                                 |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------ | -------------------------------------- |
+| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square) `deepClone`, `settle` helpers                       | core         | Shallow-copy and `Promise.all` gotchas |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `getAccessibilityProps`, `createShadow`       | react-native | Accessibility and iOS-only shadows     |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates   |
 
 ---
 
