@@ -227,6 +227,52 @@ Shared (non-circular) references are kept as they are. Returns `undefined` when 
 
 </details>
 
+<details>
+<summary><code>deepClone(value)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="object" src="https://img.shields.io/badge/-object-ec4899?style=flat-square"></summary>
+
+<br>
+
+A real deep copy. `{ ...obj }` only copies the top level, so nested objects stay shared with the original.
+
+```ts
+const a = { user: { name: "a", tags: ["x"] } };
+
+const shallow = { ...a };
+shallow.user.name = "oops"; // a.user.name is now "oops" too
+
+const copy = deepClone(a);
+copy.user.name = "safe"; // a is untouched
+```
+
+Handles nested objects and arrays, `Date`, `RegExp`, `Map`, `Set`, typed arrays, circular references, and class instances (prototype kept). Functions, `Promise`, `WeakMap` and `WeakSet` can't be copied and are returned as they are.
+
+> It's one implementation on every platform, so behaviour doesn't change depending on whether `structuredClone` exists in your React Native engine.
+
+</details>
+
+<details>
+<summary><code>settle(promises)</code> / <code>getOrDefault(result, fallback)</code> &nbsp; <img alt="live" src="https://img.shields.io/badge/-live-22c55e?style=flat-square"> <img alt="async" src="https://img.shields.io/badge/-async-6366f1?style=flat-square"></summary>
+
+<br>
+
+`Promise.all` rejects on the first failure and throws away everything else. These keep what worked.
+
+```ts
+// A list: keep the successes, collect the failures
+const { values, errors } = await settle(files.map(upload));
+
+// A few named requests: per-field fallbacks
+const [user, orders] = await Promise.allSettled([getUser(), getOrders()]);
+render({
+  user: getOrDefault(user, null),
+  orders: getOrDefault(orders, []),
+});
+```
+
+`settle` also returns the raw `results`, so you can tell which input failed.
+
+</details>
+
 ### React Native
 
 <details>
@@ -250,11 +296,11 @@ const behavior = isIOS ? "padding" : "height";
 
 Released one or two at a time, each matching a post that's already live.
 
-| Next up                                                                                                                  | Entry        | Origin                                 |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------ | -------------------------------------- |
-| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square) `deepClone`, `settle` helpers                       | core         | Shallow-copy and `Promise.all` gotchas |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `getAccessibilityProps`, `createShadow`       | react-native | Accessibility and iOS-only shadows     |
-| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates   |
+| Next up                                                                                                                  | Entry        | Origin                               |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------ |
+| ![next](https://img.shields.io/badge/-next-f59e0b?style=flat-square) `getAccessibilityProps`, `createShadow`             | react-native | Accessibility and iOS-only shadows   |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `useInterval`, `useCountdown`, `useIsMounted` | react        | Stale closures and unmounted updates |
+| ![planned](https://img.shields.io/badge/-planned-64748b?style=flat-square) `toCents`, `fromCents`, `formatMoney`         | core         | Floating-point money bugs            |
 
 ---
 

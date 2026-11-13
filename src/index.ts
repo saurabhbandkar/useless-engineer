@@ -8,3 +8,5 @@ export { delay, type DelayOptions } from "./async/delay";
 export { withTimeout, TimeoutError } from "./async/withTimeout";
 export { safeParseJSON } from "./json/safeParseJSON";
 export { safeStringify, type SafeStringifyOptions } from "./json/safeStringify";
+export { deepClone } from "./object/deepClone";
+export { settle, getOrDefault, type Settled } from "./async/settle";
